@@ -1,23 +1,28 @@
-<tool id="xls2tab_R" name="XLS sheet to Tabular" version="0.1">
+<tool id="xls2tab_R" name="XLS sheet to Tabular" version="@TOOL_VERSION@+galaxy@VERSION_SUFFIX@" profile="23.1">
+    <macros>
+        <token name="@TOOL_VERSION@">1.4.3</token>
+        <token name="@VERSION_SUFFIX@">0</token>
+    </macros>
     <requirements>
-        <requirement type="package" version="3.2.1">R</requirement>
-		<requirement type="package" version="1.1.0">r-readxl</requirement>
+        <requirement type="package" version="@TOOL_VERSION@">r-readxl</requirement>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
         Rscript '$__tool_directory__/xls2tab.R' '$input1' '$sheet' '$output' ]]>
     </command>
     <inputs>
         <param format="excel.xls,xlsx" name="input1" type="data" label="XLS/XLSX file"/>
-        <param name="sheet" type="text" label="Excel sheet name" value="biodiv_data">
-            <sanitizer sanitize="False"/>
+        <param name="sheet" type="text" label="Excel sheet name" value="">
+            <sanitizer>
+                <valid initial="string.printable">
+                    <remove value="\\"/>
+                    <remove value="'"/>
+                </valid>
+            </sanitizer>
         </param>
-
     </inputs>
-
     <outputs>
-        <data format="tabular" name="output" from_work_dir="out.tabular" />
+        <data format="tabular" name="output"/>
     </outputs>
-    
     <tests>
         <test>
             <param name="input1" value="example_xlsx.xlsx"/>
@@ -25,7 +30,6 @@
             <output name="output" file="out.tabular"/>
         </test>
     </tests>
-
     <help>
 **What it does**
 
@@ -39,17 +43,5 @@ Extract a sheet from XLS/XLSX file to a tabular file.
 Input XLS/XLSX with a sheet named 'données in situ'
 
 Output tabular
-
-
-------
-
-**Arguments**
-
-Input: xls/xlsx file.
-Excel sheet name: données in situ
-
-
-
-
     </help>
 </tool>

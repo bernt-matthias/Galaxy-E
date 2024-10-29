@@ -1,0 +1,11 @@
+name: xls2tabular
+owner: ylebras
+categories:
+    - Ecology
+    - Convert Formats
+description: Xlsx sheet to tabular by name
+homepage_url: https://github.com/tidyverse/readxl/
+long_description: |
+    Extract a Xlsx sheet using sheet name to a tabular dataset
+remote_repository_url: https://github.com/65MO/Galaxy-E/tree/master/tools/tabular2csv
+type: unrestricted 
